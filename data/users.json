@@ -1,0 +1,34 @@
+{
+  "RAZANSAAD": {
+    "password": "12345",
+    "openTasks": [
+      "Finish homework",
+      "Finish registration page",
+      "Update profile UI"
+    ],
+    "completedTasks": [
+      "finish working on the project"
+    ],
+    "token": ""
+  },
+  "razan123": {
+    "password": "razan123",
+    "openTasks": [],
+    "completedTasks": [],
+    "token": "razan123-1755263682666"
+  },
+  "mayar": {
+    "password": "mayar123",
+    "openTasks": [],
+    "completedTasks": [],
+    "token": "mayar-1755107002023"
+  },
+  "RAZAN": {
+    "password": "razan123",
+    "openTasks": [
+      "Finish homework"
+    ],
+    "completedTasks": [],
+    "token": ""
+  }
+}

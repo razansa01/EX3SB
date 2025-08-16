@@ -1,0 +1,38 @@
+/* Authors: Razan Saad 322391103, Mayar Ghanem 213380694 */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/images/loginbg.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+#login {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+#login input, #login button {
+    margin: 8px 0;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#login button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#login button:hover {
+    background-color: #0069d9;
+}

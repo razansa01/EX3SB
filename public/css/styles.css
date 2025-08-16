@@ -1,0 +1,101 @@
+/* Authors: Razan Saad 322391103, Mayar Ghanem 213380694 */
+/* Basic styling for task management interface */
+/* Center content with max width */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px auto;
+    max-width: 960px;
+    background-color: #f8f9fa;
+}
+
+/* Headings */
+h2, h3 {
+    color: #2c3e50;
+    margin-bottom: 12px;
+}
+
+/* Task containers */
+#taskContainers {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+#taskContainers div {
+    flex: 1;
+}
+
+/* Task lists */
+ul {
+    list-style-type: none;
+    padding: 12px;
+    border: 1px solid #ddd;
+    min-height: 120px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 1px 4px rgba(0,0,0,0.05);
+}
+
+/* Task items */
+li {
+    padding: 12px 14px;
+    margin: 6px 0;
+    background-color: #eef2f7;
+    border-radius: 6px;
+    cursor: move;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+li:hover {
+    background-color: #dde4ec;
+    transform: translateY(-1px);
+}
+
+/* Completed tasks */
+#completedTasks li {
+    color: #28a745;
+    text-decoration: line-through;
+    background-color: #eaf7ec;
+}
+
+/* Placeholder for drag */
+.placeholder {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    border: 2px dashed #bbb;
+    padding: 12px;
+    background-color: #fdfdfd;
+}
+
+/* Inputs */
+input[type="text"] {
+    padding: 10px;
+    margin: 10px 0;
+    width: 75%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #4c8dff;
+    box-shadow: 0 0 0 3px rgba(76,141,255,0.25);
+    outline: none;
+}
+
+/* Buttons */
+button {
+    padding: 10px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #0069d9;
+}

@@ -1,0 +1,33 @@
+<!-- Razan Saad 322391103, Mayar Ghanem 213380694 -->
+<!-- We requested the help of ChatGPT to implement the drag and drop-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Main</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <h2>Your Tasks</h2>
+
+  <div id="taskContainers">
+    <div>
+      <h3>Open Tasks</h3>
+      <ul id="openTasks"></ul>
+    </div>
+
+    <div>
+      <h3>Completed Tasks</h3>
+      <ul id="completedTasks"></ul>
+      <button id="removeCompletedBtn">Remove Completed Tasks</button>
+    </div>
+  </div>
+
+  <input type="text" id="newTask" placeholder="New Task" />
+  <button id="addTaskBtn">Add Task</button>
+  <button id="logoutBtn">Logout</button>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
