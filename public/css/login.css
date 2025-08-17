@@ -1,4 +1,11 @@
-/* Authors: Razan Saad 322391103, Mayar Ghanem 213380694 */
+/**
+ * GitHub Repository: https://github.com/razansa01/EX3SB.git
+ * Authors: Razan Saad 322391103, Mayar Ganem 213380694
+ * Date: 15/08/2025
+ * Description: CSS stylesheet for the login page.
+ *              Defines layout, background, form styling, and button interactions.
+ */
+
 body {
     margin: 0;
     height: 100vh;
@@ -18,7 +25,8 @@ body {
     text-align: center;
 }
 
-#login input, #login button {
+#login input,
+#login button {
     margin: 8px 0;
     padding: 10px;
     width: 100%;
