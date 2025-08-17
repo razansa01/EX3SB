@@ -1,5 +1,18 @@
-/* Authors: Razan Saad 322391103, Mayar Ghanem 213380694 */
-/* Profile routes - user registration, login, logout, and tasks API */
+/**
+ * GitHub Repository: https://github.com/razansa01/EX3SB.git
+ * Authors: Razan Saad 322391103, Mayar Ganem 213380694
+ * Date: 15/08/2025
+ * Description: Profile routes for the EX3 app — user registration, login/logout,
+ *              session via cookie token, and a per-user tasks API (open/completed).
+ *
+ * Modules used:
+ * - express: Router creation and HTTP handling
+ * - cookie-parser: Read/write cookies for session token
+ * - fs: Persist users and tasks to data/users.json
+ * - path: File-system path resolution
+ */
+
+// Profile routes - user registration, login, logout, and tasks API
 
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -8,15 +21,15 @@ const path = require('path');
 
 const router = express.Router();
 
-// Middlewares for this router only
-router.use(express.json()); // Use built-in body parser for JSON
-router.use(cookieParser());
+// Router-scoped middleware
+router.use(express.json());     // Parse JSON request bodies (built-in body parser)
+router.use(cookieParser());     // Enable cookie access via req.cookies
 
 const USERS_PATH = path.join(__dirname, '..', 'data', 'users.json');
 
 let usersData = {};
 
-// Load users from data/users.json into memory
+// Load users into memory from data/users.json (on server start)
 fs.readFile(USERS_PATH, 'utf8', (err, data) => {
   if (!err && data) {
     try {
@@ -27,55 +40,56 @@ fs.readFile(USERS_PATH, 'utf8', (err, data) => {
   }
 });
 
-// Save current usersData object to users.json file
+// Persist the in-memory usersData object to users.json
 function saveUsersData() {
   fs.writeFile(USERS_PATH, JSON.stringify(usersData, null, 2), (err) => {
     if (err) console.error('Error saving users data:', err);
   });
 }
 
-/* === Helper function: get username from cookie token === */
+/** Helper: Resolve username by cookie token (returns null if missing/invalid). */
 function getUsernameByToken(req) {
   const userToken = req.cookies.userToken;
   if (!userToken) return null;
   return Object.keys(usersData).find(u => usersData[u].token === userToken) || null;
 }
 
-/* === Protect main.html: redirect to '/' if not logged in === */
+/** Guard main.html: redirect unauthenticated users to the login page ("/"). */
 router.get('/main.html', (req, res) => {
   const username = getUsernameByToken(req);
   if (!username) {
-    return res.redirect('/'); // Redirect to login page
+    return res.redirect('/'); // Not logged in → go to login page
   }
   return res.sendFile(path.join(__dirname, '..', 'public', 'main.html'));
 });
 
-// Login endpoint
+/** Login: verify credentials, issue cookie token, and persist it for session continuity. */
 router.post('/login', (req, res) => {
   const { username, password } = req.body || {};
   if (usersData[username] && usersData[username].password === password) {
-    const userToken = `${username}-${Date.now()}`; // FIX: use template literal for token
+    const userToken = `${username}-${Date.now()}`; // Simple unique token (username + timestamp)
     usersData[username].token = userToken;
-    saveUsersData(); // NEW: persist token so session survives server restarts
-    // 15 minutes expiration, httpOnly for security
+    saveUsersData(); // Keep token across restarts
+
+    // 15-minute cookie; HttpOnly to reduce XSS risk; SameSite=Lax to guard CSRF a bit
     res.cookie('userToken', userToken, { maxAge: 15 * 60 * 1000, httpOnly: true, sameSite: 'lax' });
     return res.json({ success: true });
   }
   return res.json({ success: false });
 });
 
-/* === Logout: clear cookie + reset token === */
+/** Logout: clear cookie and invalidate the stored token. */
 router.post('/logout', (req, res) => {
   const username = getUsernameByToken(req);
   if (username) {
     usersData[username].token = '';
-    saveUsersData(); // keep file in sync
+    saveUsersData();
   }
   res.clearCookie('userToken', { httpOnly: true, sameSite: 'lax' });
   return res.json({ success: true });
 });
 
-// Get tasks for the logged-in user
+/** Get user tasks (requires a valid session). */
 router.get('/tasks', (req, res) => {
   const username = getUsernameByToken(req);
   if (!username) return res.status(403).json({ error: 'Unauthorized' });
@@ -85,17 +99,17 @@ router.get('/tasks', (req, res) => {
   });
 });
 
-// Update tasks for the logged-in user
+/** Update user tasks (requires a valid session). Saves immediately to disk. */
 router.post('/tasks', (req, res) => {
   const username = getUsernameByToken(req);
   if (!username) return res.status(403).json({ error: 'Unauthorized' });
   usersData[username].openTasks = req.body.openTasks || [];
   usersData[username].completedTasks = req.body.completedTasks || [];
-  saveUsersData(); // persist changes immediately
+  saveUsersData();
   res.json({ success: true });
 });
 
-// Register a new user
+/** Register: basic username/password creation with empty task lists and no token. */
 router.post('/register', (req, res) => {
   const { username, password } = req.body || {};
   if (!username || !password) return res.json({ success: false, message: 'Missing fields' });
@@ -103,7 +117,7 @@ router.post('/register', (req, res) => {
     return res.json({ success: false, message: 'Username already exists' });
   }
   usersData[username] = { password, openTasks: [], completedTasks: [], token: '' };
-  saveUsersData(); // persist new user
+  saveUsersData();
   res.json({ success: true });
 });
 
