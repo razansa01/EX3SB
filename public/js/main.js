@@ -1,4 +1,12 @@
-/* Razan Saad 322391103, Mayar Ghanem 213380694 */
+/**
+ * GitHub Repository: https://github.com/razansa01/EX3SB.git
+ * Authors: Razan Saad 322391103, Mayar Ganem 213380694
+ * Date: 15/08/2025
+ * Description: Main window tasks script (no inline JS).
+ *              Loads user tasks, supports drag & drop between lists,
+ *              persists changes to the server, and handles logout.
+ */
+
 /* Main window tasks script (no inline JS) */
 
 document.addEventListener('DOMContentLoaded', () => {
