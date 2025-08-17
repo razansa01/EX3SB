@@ -1,4 +1,11 @@
-/* Authors: Razan Saad 322391103, Mayar Ghanem 213380694 */
+/**
+ * GitHub Repository: https://github.com/razansa01/EX3SB.git
+ * Authors: Razan Saad 322391103, Mayar Ganem 213380694
+ * Date: 15/08/2025
+ * Description: General stylesheet for the task management interface.
+ *              Defines layout, headings, containers, lists, tasks, inputs, and buttons.
+ */
+
 /* Basic styling for task management interface */
 /* Center content with max width */
 body {
